@@ -44,7 +44,7 @@ pipeline {
     stage("SonarQube") {
       steps {
         withSonarQubeEnv("us-west-1-sonar") {
-            sh "mvn sonar:sonar"
+            sh "mvn verify sonar:sonar -Dmaven.test.failure.ignore=true"
         }
       }
     }

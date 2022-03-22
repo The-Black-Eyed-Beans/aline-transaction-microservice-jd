@@ -1,12 +1,13 @@
 def buildApp() {
-  sh "git submodule init"
-  sh "git submodule update"
   sh "mvn package"
 }
 
 def testApp() {
   if (params.IS_TESTING) {
-    sh "mvn clean test"
+    sh "mvn clean"
+    sh "git submodule init"
+    sh "git submodule update"
+    sh "mvn test"
   }
 }
 

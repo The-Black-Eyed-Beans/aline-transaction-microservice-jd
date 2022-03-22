@@ -54,36 +54,36 @@ class TransactionApiTest {
     @DisplayName("Test CREATED state transaction")
     class CreateTransactionsTest {
 
-        // @Test
-        // void test_createsTransactionWithCorrectProperties_and_accountBalanceNotAffected_and_createsNewMerchant() {
+        @Test
+        void test_createsTransactionWithCorrectProperties_and_accountBalanceNotAffected_and_createsNewMerchant() {
 
-        //     CreateTransaction createTransaction = CreateTransaction.builder()
-        //             .amount(10000)
-        //             .accountNumber("0011011234")
-        //             .type(TransactionType.PURCHASE)
-        //             .merchantCode("NEWME")
-        //             .merchantName("New Merchant")
-        //             .method(TransactionMethod.ACH)
-        //             .build();
+            CreateTransaction createTransaction = CreateTransaction.builder()
+                    .amount(10000)
+                    .accountNumber("0011011234")
+                    .type(TransactionType.PURCHASE)
+                    .merchantCode("NEWME")
+                    .merchantName("New Merchant")
+                    .method(TransactionMethod.ACH)
+                    .build();
 
-        //     Transaction transaction = transactions.createTransaction(createTransaction);
-        //     Account account = transaction.getAccount();
-        //     Merchant merchant = transaction.getMerchant();
+            Transaction transaction = transactions.createTransaction(createTransaction);
+            Account account = transaction.getAccount();
+            Merchant merchant = transaction.getMerchant();
 
-        //     // Account balance not affected
-        //     assertEquals(100000, account.getBalance());
+            // Account balance not affected
+            assertEquals(100000, account.getBalance());
 
-        //     // Merchant and account information are correct
-        //     assertEquals("0011011234", account.getAccountNumber());
-        //     assertEquals("NEWME", merchant.getCode());
-        //     assertEquals("New Merchant", merchant.getName());
+            // Merchant and account information are correct
+            assertEquals("0011011234", account.getAccountNumber());
+            assertEquals("NEWME", merchant.getCode());
+            assertEquals("New Merchant", merchant.getName());
 
-        //     assertEquals(TransactionType.PURCHASE, transaction.getType());
-        //     assertFalse(transaction.isIncreasing());
-        //     assertTrue(transaction.isDecreasing());
-        //     assertTrue(transaction.isMerchantTransaction());
+            assertEquals(TransactionType.PURCHASE, transaction.getType());
+            assertFalse(transaction.isIncreasing());
+            assertTrue(transaction.isDecreasing());
+            assertTrue(transaction.isMerchantTransaction());
 
-        // }
+        }
 
         @Test
         void test_createsTransactionWithCorrectProperties_for_withdrawal() {
@@ -111,72 +111,72 @@ class TransactionApiTest {
 
         }
 
-        // @Test
-        // void test_createsTransactionWithCorrectProperties_with_existingMerchant() {
+        @Test
+        void test_createsTransactionWithCorrectProperties_with_existingMerchant() {
 
-        //     CreateTransaction createTransaction = CreateTransaction.builder()
-        //             .amount(10000)
-        //             .accountNumber("0011011234")
-        //             .type(TransactionType.PURCHASE)
-        //             .merchantCode("ALINE")
-        //             .merchantName("Aline Financial Online Store")
-        //             .method(TransactionMethod.ACH)
-        //             .build();
+            CreateTransaction createTransaction = CreateTransaction.builder()
+                    .amount(10000)
+                    .accountNumber("0011011234")
+                    .type(TransactionType.PURCHASE)
+                    .merchantCode("ALINE")
+                    .merchantName("Aline Financial Online Store")
+                    .method(TransactionMethod.ACH)
+                    .build();
 
-        //     Transaction transaction = transactions.createTransaction(createTransaction);
-        //     Account account = transaction.getAccount();
-        //     Merchant merchant = transaction.getMerchant();
+            Transaction transaction = transactions.createTransaction(createTransaction);
+            Account account = transaction.getAccount();
+            Merchant merchant = transaction.getMerchant();
 
-        //     // Account balance not affected
-        //     assertEquals(100000, account.getBalance());
+            // Account balance not affected
+            assertEquals(100000, account.getBalance());
 
-        //     // Merchant and account information are correct
-        //     assertEquals("0011011234", account.getAccountNumber());
-        //     assertEquals("ALINE", merchant.getCode());
-        //     assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
-        //     assertEquals("Aline Financial", merchant.getName());
+            // Merchant and account information are correct
+            assertEquals("0011011234", account.getAccountNumber());
+            assertEquals("ALINE", merchant.getCode());
+            assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
+            assertEquals("Aline Financial", merchant.getName());
 
-        //     assertEquals(TransactionType.PURCHASE, transaction.getType());
-        //     assertFalse(transaction.isIncreasing());
-        //     assertTrue(transaction.isDecreasing());
-        //     assertTrue(transaction.isMerchantTransaction());
+            assertEquals(TransactionType.PURCHASE, transaction.getType());
+            assertFalse(transaction.isIncreasing());
+            assertTrue(transaction.isDecreasing());
+            assertTrue(transaction.isMerchantTransaction());
 
-        // }
+        }
 
-//         @Test
-//         void test_canDelete() {
-//             CreateTransaction createTransaction = CreateTransaction.builder()
-//                     .amount(10000)
-//                     .accountNumber("0011011234")
-//                     .type(TransactionType.PURCHASE)
-//                     .merchantCode("ALINE")
-//                     .merchantName("Aline Financial Online Store")
-//                     .method(TransactionMethod.ACH)
-//                     .build();
+        @Test
+        void test_canDelete() {
+            CreateTransaction createTransaction = CreateTransaction.builder()
+                    .amount(10000)
+                    .accountNumber("0011011234")
+                    .type(TransactionType.PURCHASE)
+                    .merchantCode("ALINE")
+                    .merchantName("Aline Financial Online Store")
+                    .method(TransactionMethod.ACH)
+                    .build();
 
-//             Transaction transaction = transactions.createTransaction(createTransaction);
-//             Account account = transaction.getAccount();
-//             Merchant merchant = transaction.getMerchant();
+            Transaction transaction = transactions.createTransaction(createTransaction);
+            Account account = transaction.getAccount();
+            Merchant merchant = transaction.getMerchant();
 
-//             // Account balance not affected
-//             assertEquals(100000, account.getBalance());
+            // Account balance not affected
+            assertEquals(100000, account.getBalance());
 
-//             // Merchant and account information are correct
-//             assertEquals("0011011234", account.getAccountNumber());
-//             assertEquals("ALINE", merchant.getCode());
-//             assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
-//             assertEquals("Aline Financial", merchant.getName());
+            // Merchant and account information are correct
+            assertEquals("0011011234", account.getAccountNumber());
+            assertEquals("ALINE", merchant.getCode());
+            assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
+            assertEquals("Aline Financial", merchant.getName());
 
-//             assertEquals(TransactionType.PURCHASE, transaction.getType());
-//             assertFalse(transaction.isIncreasing());
-//             assertTrue(transaction.isDecreasing());
-//             assertTrue(transaction.isMerchantTransaction());
+            assertEquals(TransactionType.PURCHASE, transaction.getType());
+            assertFalse(transaction.isIncreasing());
+            assertTrue(transaction.isDecreasing());
+            assertTrue(transaction.isMerchantTransaction());
 
-//             assertDoesNotThrow(() -> transactions.deleteTransactionById(transaction.getId()));
+            assertDoesNotThrow(() -> transactions.deleteTransactionById(transaction.getId()));
 
-//             assertNull(repository.findById(transaction.getId()).orElse(null));
-//         }
-//     }
+            assertNull(repository.findById(transaction.getId()).orElse(null));
+        }
+    }
 
     @Nested
     @DisplayName("Test PROCESSING state transaction")

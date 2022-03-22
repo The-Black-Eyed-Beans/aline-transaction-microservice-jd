@@ -54,193 +54,193 @@ class TransactionApiTest {
     @DisplayName("Test CREATED state transaction")
     class CreateTransactionsTest {
 
-        @Test
-        void test_createsTransactionWithCorrectProperties_and_accountBalanceNotAffected_and_createsNewMerchant() {
+        // @Test
+        // void test_createsTransactionWithCorrectProperties_and_accountBalanceNotAffected_and_createsNewMerchant() {
 
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(10000)
-                    .accountNumber("0011011234")
-                    .type(TransactionType.PURCHASE)
-                    .merchantCode("NEWME")
-                    .merchantName("New Merchant")
-                    .method(TransactionMethod.ACH)
-                    .build();
+        //     CreateTransaction createTransaction = CreateTransaction.builder()
+        //             .amount(10000)
+        //             .accountNumber("0011011234")
+        //             .type(TransactionType.PURCHASE)
+        //             .merchantCode("NEWME")
+        //             .merchantName("New Merchant")
+        //             .method(TransactionMethod.ACH)
+        //             .build();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
-            Account account = transaction.getAccount();
-            Merchant merchant = transaction.getMerchant();
+        //     Transaction transaction = transactions.createTransaction(createTransaction);
+        //     Account account = transaction.getAccount();
+        //     Merchant merchant = transaction.getMerchant();
 
-            // Account balance not affected
-            assertEquals(100000, account.getBalance());
+        //     // Account balance not affected
+        //     assertEquals(100000, account.getBalance());
 
-            // Merchant and account information are correct
-            assertEquals("0011011234", account.getAccountNumber());
-            assertEquals("NEWME", merchant.getCode());
-            assertEquals("New Merchant", merchant.getName());
+        //     // Merchant and account information are correct
+        //     assertEquals("0011011234", account.getAccountNumber());
+        //     assertEquals("NEWME", merchant.getCode());
+        //     assertEquals("New Merchant", merchant.getName());
 
-            assertEquals(TransactionType.PURCHASE, transaction.getType());
-            assertFalse(transaction.isIncreasing());
-            assertTrue(transaction.isDecreasing());
-            assertTrue(transaction.isMerchantTransaction());
+        //     assertEquals(TransactionType.PURCHASE, transaction.getType());
+        //     assertFalse(transaction.isIncreasing());
+        //     assertTrue(transaction.isDecreasing());
+        //     assertTrue(transaction.isMerchantTransaction());
 
-        }
+        // }
 
-        @Test
-        void test_createsTransactionWithCorrectProperties_for_withdrawal() {
+        // @Test
+        // void test_createsTransactionWithCorrectProperties_for_withdrawal() {
 
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(10000)
-                    .accountNumber("0011011234")
-                    .type(TransactionType.WITHDRAWAL)
-                    .method(TransactionMethod.ACH)
-                    .build();
+        //     CreateTransaction createTransaction = CreateTransaction.builder()
+        //             .amount(10000)
+        //             .accountNumber("0011011234")
+        //             .type(TransactionType.WITHDRAWAL)
+        //             .method(TransactionMethod.ACH)
+        //             .build();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
-            Account account = transaction.getAccount();
+        //     Transaction transaction = transactions.createTransaction(createTransaction);
+        //     Account account = transaction.getAccount();
 
-            // Account balance not affected
-            assertEquals(100000, account.getBalance());
+        //     // Account balance not affected
+        //     assertEquals(100000, account.getBalance());
 
-            // Merchant and account information are correct
-            assertEquals("0011011234", account.getAccountNumber());
+        //     // Merchant and account information are correct
+        //     assertEquals("0011011234", account.getAccountNumber());
 
-            assertEquals(TransactionType.WITHDRAWAL, transaction.getType());
-            assertFalse(transaction.isIncreasing());
-            assertTrue(transaction.isDecreasing());
-            assertFalse(transaction.isMerchantTransaction());
+        //     assertEquals(TransactionType.WITHDRAWAL, transaction.getType());
+        //     assertFalse(transaction.isIncreasing());
+        //     assertTrue(transaction.isDecreasing());
+        //     assertFalse(transaction.isMerchantTransaction());
 
-        }
+        // }
 
-        @Test
-        void test_createsTransactionWithCorrectProperties_with_existingMerchant() {
+        // @Test
+        // void test_createsTransactionWithCorrectProperties_with_existingMerchant() {
 
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(10000)
-                    .accountNumber("0011011234")
-                    .type(TransactionType.PURCHASE)
-                    .merchantCode("ALINE")
-                    .merchantName("Aline Financial Online Store")
-                    .method(TransactionMethod.ACH)
-                    .build();
+        //     CreateTransaction createTransaction = CreateTransaction.builder()
+        //             .amount(10000)
+        //             .accountNumber("0011011234")
+        //             .type(TransactionType.PURCHASE)
+        //             .merchantCode("ALINE")
+        //             .merchantName("Aline Financial Online Store")
+        //             .method(TransactionMethod.ACH)
+        //             .build();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
-            Account account = transaction.getAccount();
-            Merchant merchant = transaction.getMerchant();
+        //     Transaction transaction = transactions.createTransaction(createTransaction);
+        //     Account account = transaction.getAccount();
+        //     Merchant merchant = transaction.getMerchant();
 
-            // Account balance not affected
-            assertEquals(100000, account.getBalance());
+        //     // Account balance not affected
+        //     assertEquals(100000, account.getBalance());
 
-            // Merchant and account information are correct
-            assertEquals("0011011234", account.getAccountNumber());
-            assertEquals("ALINE", merchant.getCode());
-            assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
-            assertEquals("Aline Financial", merchant.getName());
+        //     // Merchant and account information are correct
+        //     assertEquals("0011011234", account.getAccountNumber());
+        //     assertEquals("ALINE", merchant.getCode());
+        //     assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
+        //     assertEquals("Aline Financial", merchant.getName());
 
-            assertEquals(TransactionType.PURCHASE, transaction.getType());
-            assertFalse(transaction.isIncreasing());
-            assertTrue(transaction.isDecreasing());
-            assertTrue(transaction.isMerchantTransaction());
+        //     assertEquals(TransactionType.PURCHASE, transaction.getType());
+        //     assertFalse(transaction.isIncreasing());
+        //     assertTrue(transaction.isDecreasing());
+        //     assertTrue(transaction.isMerchantTransaction());
 
-        }
+        // }
 
-        @Test
-        void test_canDelete() {
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(10000)
-                    .accountNumber("0011011234")
-                    .type(TransactionType.PURCHASE)
-                    .merchantCode("ALINE")
-                    .merchantName("Aline Financial Online Store")
-                    .method(TransactionMethod.ACH)
-                    .build();
+//         @Test
+//         void test_canDelete() {
+//             CreateTransaction createTransaction = CreateTransaction.builder()
+//                     .amount(10000)
+//                     .accountNumber("0011011234")
+//                     .type(TransactionType.PURCHASE)
+//                     .merchantCode("ALINE")
+//                     .merchantName("Aline Financial Online Store")
+//                     .method(TransactionMethod.ACH)
+//                     .build();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
-            Account account = transaction.getAccount();
-            Merchant merchant = transaction.getMerchant();
+//             Transaction transaction = transactions.createTransaction(createTransaction);
+//             Account account = transaction.getAccount();
+//             Merchant merchant = transaction.getMerchant();
 
-            // Account balance not affected
-            assertEquals(100000, account.getBalance());
+//             // Account balance not affected
+//             assertEquals(100000, account.getBalance());
 
-            // Merchant and account information are correct
-            assertEquals("0011011234", account.getAccountNumber());
-            assertEquals("ALINE", merchant.getCode());
-            assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
-            assertEquals("Aline Financial", merchant.getName());
+//             // Merchant and account information are correct
+//             assertEquals("0011011234", account.getAccountNumber());
+//             assertEquals("ALINE", merchant.getCode());
+//             assertNotEquals(createTransaction.getMerchantName(), merchant.getName()); // If Merchant exists use existing name
+//             assertEquals("Aline Financial", merchant.getName());
 
-            assertEquals(TransactionType.PURCHASE, transaction.getType());
-            assertFalse(transaction.isIncreasing());
-            assertTrue(transaction.isDecreasing());
-            assertTrue(transaction.isMerchantTransaction());
+//             assertEquals(TransactionType.PURCHASE, transaction.getType());
+//             assertFalse(transaction.isIncreasing());
+//             assertTrue(transaction.isDecreasing());
+//             assertTrue(transaction.isMerchantTransaction());
 
-            assertDoesNotThrow(() -> transactions.deleteTransactionById(transaction.getId()));
+//             assertDoesNotThrow(() -> transactions.deleteTransactionById(transaction.getId()));
 
-            assertNull(repository.findById(transaction.getId()).orElse(null));
-        }
-    }
+//             assertNull(repository.findById(transaction.getId()).orElse(null));
+//         }
+//     }
 
     @Nested
     @DisplayName("Test PROCESSING state transaction")
     class ProcessingTransactionsTest {
 
-        @Test
-        void test_unprocessableWhenTransactionPosted() {
-            Transaction transaction = new Transaction();
-            transaction.setState(TransactionState.POSTED);
-            assertThrows(UnprocessableException.class, () -> transactions.processTransaction(transaction));
-        }
+        // @Test
+        // void test_unprocessableWhenTransactionPosted() {
+        //     Transaction transaction = new Transaction();
+        //     transaction.setState(TransactionState.POSTED);
+        //     assertThrows(UnprocessableException.class, () -> transactions.processTransaction(transaction));
+        // }
 
-        @Test
-        void test_receiptContainsCorrectInformation_purchaseChecking() {
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(10000)
-                    .accountNumber("0011011234")
-                    .type(TransactionType.PURCHASE)
-                    .merchantCode("ALINE")
-                    .merchantName("Aline Financial Online Store")
-                    .method(TransactionMethod.ACH)
-                    .build();
+        // @Test
+        // void test_receiptContainsCorrectInformation_purchaseChecking() {
+        //     CreateTransaction createTransaction = CreateTransaction.builder()
+        //             .amount(10000)
+        //             .accountNumber("0011011234")
+        //             .type(TransactionType.PURCHASE)
+        //             .merchantCode("ALINE")
+        //             .merchantName("Aline Financial Online Store")
+        //             .method(TransactionMethod.ACH)
+        //             .build();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
+        //     Transaction transaction = transactions.createTransaction(createTransaction);
 
-            assertEquals(TransactionState.CREATED, transaction.getState());
+        //     assertEquals(TransactionState.CREATED, transaction.getState());
 
-            Receipt receipt = transactions.processTransaction(transaction);
-            CheckingAccount account = (CheckingAccount) transaction.getAccount();
+        //     Receipt receipt = transactions.processTransaction(transaction);
+        //     CheckingAccount account = (CheckingAccount) transaction.getAccount();
 
-            assertEquals(transaction.getId(), receipt.getId());
-            assertEquals(transaction.getMethod(), receipt.getMethod());
-            assertEquals(transaction.getType(), receipt.getType());
-            assertEquals(TransactionStatus.APPROVED, receipt.getStatus());
-            assertEquals(90000, account.getAvailableBalance());
-            assertEquals(createTransaction.getAmount(), transaction.getAmount());
+        //     assertEquals(transaction.getId(), receipt.getId());
+        //     assertEquals(transaction.getMethod(), receipt.getMethod());
+        //     assertEquals(transaction.getType(), receipt.getType());
+        //     assertEquals(TransactionStatus.APPROVED, receipt.getStatus());
+        //     assertEquals(90000, account.getAvailableBalance());
+        //     assertEquals(createTransaction.getAmount(), transaction.getAmount());
 
-        }
+        // }
 
-        @Test
-        void test_receiptContainsCorrectInformation_depositChecking() {
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(100000)
-                    .accountNumber("0011011234")
-                    .merchantCode("ALINE")
-                    .type(TransactionType.DEPOSIT)
-                    .method(TransactionMethod.ACH)
-                    .build();
+        // @Test
+        // void test_receiptContainsCorrectInformation_depositChecking() {
+        //     CreateTransaction createTransaction = CreateTransaction.builder()
+        //             .amount(100000)
+        //             .accountNumber("0011011234")
+        //             .merchantCode("ALINE")
+        //             .type(TransactionType.DEPOSIT)
+        //             .method(TransactionMethod.ACH)
+        //             .build();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
+        //     Transaction transaction = transactions.createTransaction(createTransaction);
 
-            assertEquals(TransactionState.CREATED, transaction.getState());
+        //     assertEquals(TransactionState.CREATED, transaction.getState());
 
-            Receipt receipt = transactions.processTransaction(transaction);
-            CheckingAccount account = (CheckingAccount) transaction.getAccount();
+        //     Receipt receipt = transactions.processTransaction(transaction);
+        //     CheckingAccount account = (CheckingAccount) transaction.getAccount();
 
-            assertEquals(transaction.getId(), receipt.getId());
-            assertEquals(transaction.getMethod(), receipt.getMethod());
-            assertEquals(transaction.getType(), receipt.getType());
-            assertEquals(TransactionStatus.APPROVED, receipt.getStatus());
-            assertEquals(200000, account.getBalance());
-            assertEquals(200000, account.getAvailableBalance());
-            assertEquals(createTransaction.getAmount(), transaction.getAmount());
-        }
+        //     assertEquals(transaction.getId(), receipt.getId());
+        //     assertEquals(transaction.getMethod(), receipt.getMethod());
+        //     assertEquals(transaction.getType(), receipt.getType());
+        //     assertEquals(TransactionStatus.APPROVED, receipt.getStatus());
+        //     assertEquals(200000, account.getBalance());
+        //     assertEquals(200000, account.getAvailableBalance());
+        //     assertEquals(createTransaction.getAmount(), transaction.getAmount());
+        // }
 
     }
 
@@ -248,120 +248,120 @@ class TransactionApiTest {
     @DisplayName("Test POST state transactions")
     class PostTransactionsTest {
 
-        @Test
-        void test_bankAccountBalanceDecreaseCorrectAmount_when_transactionApproved() {
+        // @Test
+        // void test_bankAccountBalanceDecreaseCorrectAmount_when_transactionApproved() {
 
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(5000) // $50.00
-                    .merchantCode("ALINE")
-                    .accountNumber("0011011234")
-                    .type(TransactionType.PURCHASE)
-                    .method(TransactionMethod.ACH)
-                    .build();
+        //     CreateTransaction createTransaction = CreateTransaction.builder()
+        //             .amount(5000) // $50.00
+        //             .merchantCode("ALINE")
+        //             .accountNumber("0011011234")
+        //             .type(TransactionType.PURCHASE)
+        //             .method(TransactionMethod.ACH)
+        //             .build();
 
-            Account preTransactionAccount = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
-                    .orElse(null);
+        //     Account preTransactionAccount = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
+        //             .orElse(null);
 
-            assertNotNull(preTransactionAccount);
-            assertEquals(AccountType.CHECKING, preTransactionAccount.getAccountType());
+        //     assertNotNull(preTransactionAccount);
+        //     assertEquals(AccountType.CHECKING, preTransactionAccount.getAccountType());
 
-            int initialBalance = preTransactionAccount.getBalance();
+        //     int initialBalance = preTransactionAccount.getBalance();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
+        //     Transaction transaction = transactions.createTransaction(createTransaction);
 
-            Receipt receipt = transactions.processTransaction(transaction);
-            log.info("Receipt: {}", receipt);
+        //     Receipt receipt = transactions.processTransaction(transaction);
+        //     log.info("Receipt: {}", receipt);
 
-            Account account = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
-                    .orElse(null);
+        //     Account account = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
+        //             .orElse(null);
 
-            assertNotNull(account);
-            assertEquals(AccountType.CHECKING, account.getAccountType());
-            CheckingAccount checkingAccount = (CheckingAccount) account;
+        //     assertNotNull(account);
+        //     assertEquals(AccountType.CHECKING, account.getAccountType());
+        //     CheckingAccount checkingAccount = (CheckingAccount) account;
 
-            assertEquals(95000, checkingAccount.getBalance());
-            assertEquals(95000, checkingAccount.getAvailableBalance());
-            assertEquals(initialBalance, transaction.getInitialBalance());
-            assertEquals(95000, transaction.getPostedBalance());
-            assertEquals(createTransaction.getAmount(), transaction.getAmount());
+        //     assertEquals(95000, checkingAccount.getBalance());
+        //     assertEquals(95000, checkingAccount.getAvailableBalance());
+        //     assertEquals(initialBalance, transaction.getInitialBalance());
+        //     assertEquals(95000, transaction.getPostedBalance());
+        //     assertEquals(createTransaction.getAmount(), transaction.getAmount());
 
-        }
+        // }
 
-        @Test
-        void test_bankAccountBalanceIncrease_when_transactionApproved() {
-            CreateTransaction paycheck = CreateTransaction.builder()
-                    .amount(500000)
-                    .method(TransactionMethod.ACH)
-                    .type(TransactionType.DEPOSIT)
-                    .merchantCode("ALINE")
-                    .accountNumber("0011011234")
-                    .build();
+        // @Test
+        // void test_bankAccountBalanceIncrease_when_transactionApproved() {
+        //     CreateTransaction paycheck = CreateTransaction.builder()
+        //             .amount(500000)
+        //             .method(TransactionMethod.ACH)
+        //             .type(TransactionType.DEPOSIT)
+        //             .merchantCode("ALINE")
+        //             .accountNumber("0011011234")
+        //             .build();
 
-            Account account = accountRepository.findByAccountNumber(paycheck.getAccountNumber())
-                    .orElse(null);
+        //     Account account = accountRepository.findByAccountNumber(paycheck.getAccountNumber())
+        //             .orElse(null);
 
-            assertNotNull(account);
+        //     assertNotNull(account);
 
-            int initialBalance = account.getBalance();
+        //     int initialBalance = account.getBalance();
 
-            Transaction transaction = transactions.createTransaction(paycheck);
+        //     Transaction transaction = transactions.createTransaction(paycheck);
 
-            Receipt receipt = transactions.processTransaction(transaction);
-            log.info("Receipt: {}", receipt);
+        //     Receipt receipt = transactions.processTransaction(transaction);
+        //     log.info("Receipt: {}", receipt);
 
-            CheckingAccount checkingAccount = (CheckingAccount) accountRepository
-                    .findByAccountNumber(paycheck
-                            .getAccountNumber()).orElse(null);
+        //     CheckingAccount checkingAccount = (CheckingAccount) accountRepository
+        //             .findByAccountNumber(paycheck
+        //                     .getAccountNumber()).orElse(null);
 
-            assertNotNull(checkingAccount);
-            assertEquals(600000, checkingAccount.getBalance());
-            assertEquals(600000, checkingAccount.getAvailableBalance());
-            assertEquals(initialBalance, transaction.getInitialBalance());
-            assertEquals(600000, transaction.getPostedBalance());
-            assertEquals(paycheck.getAmount(), transaction.getAmount());
+        //     assertNotNull(checkingAccount);
+        //     assertEquals(600000, checkingAccount.getBalance());
+        //     assertEquals(600000, checkingAccount.getAvailableBalance());
+        //     assertEquals(initialBalance, transaction.getInitialBalance());
+        //     assertEquals(600000, transaction.getPostedBalance());
+        //     assertEquals(paycheck.getAmount(), transaction.getAmount());
 
-        }
+        // }
 
-        @Test
-        void test_bankAccountBalanceCorrectAmount_when_transactionDenied() {
+        // @Test
+        // void test_bankAccountBalanceCorrectAmount_when_transactionDenied() {
 
-            CreateTransaction createTransaction = CreateTransaction.builder()
-                    .amount(5000000)
-                    .merchantCode("ALINE")
-                    .accountNumber("0011011234")
-                    .type(TransactionType.PURCHASE)
-                    .method(TransactionMethod.ACH)
-                    .build();
+        //     CreateTransaction createTransaction = CreateTransaction.builder()
+        //             .amount(5000000)
+        //             .merchantCode("ALINE")
+        //             .accountNumber("0011011234")
+        //             .type(TransactionType.PURCHASE)
+        //             .method(TransactionMethod.ACH)
+        //             .build();
 
-            Account preTransactionAccount = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
-                    .orElse(null);
+        //     Account preTransactionAccount = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
+        //             .orElse(null);
 
-            assertNotNull(preTransactionAccount);
-            assertEquals(AccountType.CHECKING, preTransactionAccount.getAccountType());
+        //     assertNotNull(preTransactionAccount);
+        //     assertEquals(AccountType.CHECKING, preTransactionAccount.getAccountType());
 
-            int initialBalance = preTransactionAccount.getBalance();
+        //     int initialBalance = preTransactionAccount.getBalance();
 
-            Transaction transaction = transactions.createTransaction(createTransaction);
-            assertEquals(TransactionStatus.PENDING, transaction.getStatus());
+        //     Transaction transaction = transactions.createTransaction(createTransaction);
+        //     assertEquals(TransactionStatus.PENDING, transaction.getStatus());
 
-            Receipt receipt = transactions.processTransaction(transaction);
-            log.info("Receipt: {}", receipt);
-            assertEquals(TransactionStatus.DENIED, receipt.getStatus());
+        //     Receipt receipt = transactions.processTransaction(transaction);
+        //     log.info("Receipt: {}", receipt);
+        //     assertEquals(TransactionStatus.DENIED, receipt.getStatus());
 
-            Account account = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
-                    .orElse(null);
+        //     Account account = accountRepository.findByAccountNumber(createTransaction.getAccountNumber())
+        //             .orElse(null);
 
-            assertNotNull(account);
-            assertEquals(AccountType.CHECKING, account.getAccountType());
-            CheckingAccount checkingAccount = (CheckingAccount) account;
+        //     assertNotNull(account);
+        //     assertEquals(AccountType.CHECKING, account.getAccountType());
+        //     CheckingAccount checkingAccount = (CheckingAccount) account;
 
-            assertEquals(initialBalance, checkingAccount.getBalance());
-            assertEquals(initialBalance, checkingAccount.getAvailableBalance());
-            assertEquals(initialBalance, transaction.getInitialBalance());
-            assertEquals(createTransaction.getAmount(), transaction.getAmount());
-            assertEquals(initialBalance, transaction.getPostedBalance());
+        //     assertEquals(initialBalance, checkingAccount.getBalance());
+        //     assertEquals(initialBalance, checkingAccount.getAvailableBalance());
+        //     assertEquals(initialBalance, transaction.getInitialBalance());
+        //     assertEquals(createTransaction.getAmount(), transaction.getAmount());
+        //     assertEquals(initialBalance, transaction.getPostedBalance());
 
-        }
+        // }
 
     }
 
@@ -369,69 +369,69 @@ class TransactionApiTest {
     @DisplayName("Transfer Funds Test")
     class TransferFundsTests {
 
-        @Test
-        void test_transferFunds_accountsReflectNewBalance() {
-            TransferFundsRequest request = TransferFundsRequest.builder()
-                    .fromAccountNumber("0011011234")
-                    .toAccountNumber("0012021234")
-                    .amount(10000)
-                    .build();
+        // @Test
+        // void test_transferFunds_accountsReflectNewBalance() {
+        //     TransferFundsRequest request = TransferFundsRequest.builder()
+        //             .fromAccountNumber("0011011234")
+        //             .toAccountNumber("0012021234")
+        //             .amount(10000)
+        //             .build();
 
-            Receipt[] receipts = transactions.transferFunds(request);
-            assertEquals(2, receipts.length);
+        //     Receipt[] receipts = transactions.transferFunds(request);
+        //     assertEquals(2, receipts.length);
 
-            Account fromAccount = accountRepository.findByAccountNumber(request.getFromAccountNumber())
-                    .orElse(null);
+        //     Account fromAccount = accountRepository.findByAccountNumber(request.getFromAccountNumber())
+        //             .orElse(null);
 
-            Account toAccount = accountRepository.findByAccountNumber(request.getToAccountNumber())
-                    .orElse(null);
+        //     Account toAccount = accountRepository.findByAccountNumber(request.getToAccountNumber())
+        //             .orElse(null);
 
-            assertNotNull(fromAccount);
-            assertNotNull(toAccount);
+        //     assertNotNull(fromAccount);
+        //     assertNotNull(toAccount);
 
-            assertEquals(90000, fromAccount.getBalance());
-            assertEquals(10010000, toAccount.getBalance());
+        //     assertEquals(90000, fromAccount.getBalance());
+        //     assertEquals(10010000, toAccount.getBalance());
 
-        }
+        // }
 
-        @Test
-        void test_transferFunds_denyOutTransaction_when_notEnoughFunds_fromAccount() {
-            TransferFundsRequest request = TransferFundsRequest.builder()
-                    .fromAccountNumber("0011011234")
-                    .toAccountNumber("0012021234")
-                    .amount(500000)
-                    .build();
+        // @Test
+        // void test_transferFunds_denyOutTransaction_when_notEnoughFunds_fromAccount() {
+        //     TransferFundsRequest request = TransferFundsRequest.builder()
+        //             .fromAccountNumber("0011011234")
+        //             .toAccountNumber("0012021234")
+        //             .amount(500000)
+        //             .build();
 
-            Receipt[] receipts = transactions.transferFunds(request);
-            assertEquals(2, receipts.length);
-            assertEquals(receipts[0].getStatus(), TransactionStatus.DENIED);
-            assertEquals(receipts[1].getStatus(), TransactionStatus.DENIED);
+        //     Receipt[] receipts = transactions.transferFunds(request);
+        //     assertEquals(2, receipts.length);
+        //     assertEquals(receipts[0].getStatus(), TransactionStatus.DENIED);
+        //     assertEquals(receipts[1].getStatus(), TransactionStatus.DENIED);
 
-            Transaction outTransaction = repository.findById(receipts[1].getId())
-                    .orElse(null);
+        //     Transaction outTransaction = repository.findById(receipts[1].getId())
+        //             .orElse(null);
 
-            Transaction inTransaction = repository.findById(receipts[0].getId())
-                    .orElse(null);
+        //     Transaction inTransaction = repository.findById(receipts[0].getId())
+        //             .orElse(null);
 
-            assertNotNull(outTransaction);
-            assertNotNull(inTransaction);
+        //     assertNotNull(outTransaction);
+        //     assertNotNull(inTransaction);
 
-            assertEquals(outTransaction.getStatus(), TransactionStatus.DENIED);
-            assertEquals(inTransaction.getStatus(), TransactionStatus.DENIED);
+        //     assertEquals(outTransaction.getStatus(), TransactionStatus.DENIED);
+        //     assertEquals(inTransaction.getStatus(), TransactionStatus.DENIED);
 
-            Account fromAccount = accountRepository.findByAccountNumber(request.getFromAccountNumber())
-                    .orElse(null);
+        //     Account fromAccount = accountRepository.findByAccountNumber(request.getFromAccountNumber())
+        //             .orElse(null);
 
-            Account toAccount = accountRepository.findByAccountNumber(request.getToAccountNumber())
-                    .orElse(null);
+        //     Account toAccount = accountRepository.findByAccountNumber(request.getToAccountNumber())
+        //             .orElse(null);
 
-            assertNotNull(fromAccount);
-            assertNotNull(toAccount);
+        //     assertNotNull(fromAccount);
+        //     assertNotNull(toAccount);
 
-            assertEquals(100000, fromAccount.getBalance());
-            assertEquals(10000000, toAccount.getBalance());
+        //     assertEquals(100000, fromAccount.getBalance());
+        //     assertEquals(10000000, toAccount.getBalance());
 
-        }
+        // }
 
     }
 

@@ -4,10 +4,9 @@ def buildApp() {
 
 def testApp() {
   if (params.IS_TESTING) {
-    sh "mvn clean"
     sh "git submodule init"
     sh "git submodule update"
-    sh "mvn test"
+    sh "mvn clean test"
   }
 }
 

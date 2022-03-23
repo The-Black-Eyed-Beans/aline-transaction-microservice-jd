@@ -37,111 +37,111 @@ class ApiIntegrationTest {
     @Autowired
     ObjectMapper mapper;
 
-    // @Test
-    // void contextLoads() {
-    //     assertNotNull(application);
-    // }
+    @Test
+    void contextLoads() {
+        assertNotNull(application);
+    }
 
-    // @Test
-    // void healthCheckTest() throws Exception {
-    //     mockMvc.perform(get("/health"))
-    //             .andExpect(status().isOk());
-    // }
+    @Test
+    void healthCheckTest() throws Exception {
+        mockMvc.perform(get("/health"))
+                .andExpect(status().isOk());
+    }
 
-    // @Test
-    // void test_getTransactionById_status_isOk_when_transactionExists() throws Exception {
-    //     mockMvc.perform(get("/transactions/{id}", 1))
-    //             .andExpect(status().isOk())
-    //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(jsonPath("$.id").value(1))
-    //             .andExpect(jsonPath("$.accountNumber").value("******1234"));
-    // }
+    @Test
+    void test_getTransactionById_status_isOk_when_transactionExists() throws Exception {
+        mockMvc.perform(get("/transactions/{id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.accountNumber").value("******1234"));
+    }
 
-    // @Test
-    // void test_getTransactionById_status_isNotFound_when_transactionDoesNotExist() throws Exception {
-    //     mockMvc.perform(get("/transactions/{id}", 999))
-    //             .andExpect(status().isNotFound())
-    //             .andExpect(content().string((new TransactionNotFoundException()).getMessage()));
-    // }
+    @Test
+    void test_getTransactionById_status_isNotFound_when_transactionDoesNotExist() throws Exception {
+        mockMvc.perform(get("/transactions/{id}", 999))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string((new TransactionNotFoundException()).getMessage()));
+    }
 
-    // @Test
-    // void test_getAllTransactionsByAccountNumber_status_isOk() throws Exception {
-    //     mockMvc.perform(get("/accounts/account-number/{accountNumber}/transactions",
-    //                     "0011011234"))
-    //             .andExpect(status().isOk())
-    //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(jsonPath("$.content.length()").value(3));
-    // }
+    @Test
+    void test_getAllTransactionsByAccountNumber_status_isOk() throws Exception {
+        mockMvc.perform(get("/accounts/account-number/{accountNumber}/transactions",
+                        "0011011234"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content.length()").value(3));
+    }
 
-    // @Test
-    // void test_getAllTransactionsByAccountId_status_isOk() throws Exception {
-    //     mockMvc.perform(get("/accounts/{id}/transactions", 1))
-    //             .andExpect(status().isOk())
-    //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(jsonPath("$.content.length()").value(3));
-    // }
+    @Test
+    void test_getAllTransactionsByAccountId_status_isOk() throws Exception {
+        mockMvc.perform(get("/accounts/{id}/transactions", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content.length()").value(3));
+    }
 
-    // @Test
-    // void test_getAllTransactionsByMemberId_status_isOk() throws Exception {
-    //     mockMvc.perform(get("/members/{id}/transactions", 1))
-    //             .andExpect(status().isOk())
-    //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(jsonPath("$.content.length()").value(5));
-    // }
+    @Test
+    void test_getAllTransactionsByMemberId_status_isOk() throws Exception {
+        mockMvc.perform(get("/members/{id}/transactions", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content.length()").value(5));
+    }
 
-    // @Test
-    // void test_getAllTransactionsByMemberId_status_isOk_memberIsSpouse() throws Exception {
-    //     mockMvc.perform(get("/members/{id}/transactions", 3))
-    //             .andExpect(status().isOk())
-    //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(jsonPath("$.content.length()").value(3));
-    // }
+    @Test
+    void test_getAllTransactionsByMemberId_status_isOk_memberIsSpouse() throws Exception {
+        mockMvc.perform(get("/members/{id}/transactions", 3))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content.length()").value(3));
+    }
 
     @Nested
     @DisplayName("Search Transactions")
     class SearchTransactionsTest {
 
-        // @Test
-        // void test_searchTransactionsByAccountId_status_is_ok_correctAmount() throws Exception {
+        @Test
+        void test_searchTransactionsByAccountId_status_is_ok_correctAmount() throws Exception {
 
-        //     mockMvc.perform(get("/accounts/{id}/transactions", 1)
-        //             .queryParam("search", "batman", "clark kent"))
-        //             .andExpect(status().isOk())
-        //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        //             .andExpect(jsonPath("$.content.length()").value(2))
-        //             .andDo(print());
+            mockMvc.perform(get("/accounts/{id}/transactions", 1)
+                    .queryParam("search", "batman", "clark kent"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.content.length()").value(2))
+                    .andDo(print());
 
-        // }
+        }
 
-        // @Test
-        // void test_searchTransactionsByMemberId_status_is_ok_correctAmount() throws Exception {
-        //     mockMvc.perform(get("/members/{id}/transactions", 1)
-        //                     .queryParam("search", "batman"))
-        //             .andExpect(status().isOk())
-        //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        //             .andExpect(jsonPath("$.content.length()").value(2))
-        //             .andDo(print());
-        // }
+        @Test
+        void test_searchTransactionsByMemberId_status_is_ok_correctAmount() throws Exception {
+            mockMvc.perform(get("/members/{id}/transactions", 1)
+                            .queryParam("search", "batman"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.content.length()").value(2))
+                    .andDo(print());
+        }
 
-        // @Test
-        // void test_searchTransactionsByAccountId_searchMerchantName_status_is_ok_correctAmount() throws Exception {
-        //     mockMvc.perform(get("/accounts/{id}/transactions", 2)
-        //             .queryParam("search", "none"))
-        //             .andExpect(status().isOk())
-        //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        //             .andExpect(jsonPath("$.content.length()").value(2))
-        //             .andDo(print());
-        // }
+        @Test
+        void test_searchTransactionsByAccountId_searchMerchantName_status_is_ok_correctAmount() throws Exception {
+            mockMvc.perform(get("/accounts/{id}/transactions", 2)
+                    .queryParam("search", "none"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.content.length()").value(2))
+                    .andDo(print());
+        }
 
-        // @Test
-        // void test_searchTransactionsByMemberId_searchWithMultiWordSearchTerm_status_is_ok_correctAmount() throws Exception {
-        //     mockMvc.perform(get("/members/{id}/transactions", 1)
-        //             .queryParam("search", "is man"))
-        //             .andExpect(status().isOk())
-        //             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        //             .andExpect(jsonPath("$.content.length()").value(4))
-        //             .andDo(print());
-        // }
+        @Test
+        void test_searchTransactionsByMemberId_searchWithMultiWordSearchTerm_status_is_ok_correctAmount() throws Exception {
+            mockMvc.perform(get("/members/{id}/transactions", 1)
+                    .queryParam("search", "is man"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.content.length()").value(4))
+                    .andDo(print());
+        }
 
     }
 
@@ -149,21 +149,21 @@ class ApiIntegrationTest {
     @DisplayName("Transfer Funds Test")
     class TransferFundsTests {
 
-        // @Test
-        // void test_transferFunds_statusIsOk_when_both_accountsExists() throws Exception {
-        //     TransferFundsRequest request = TransferFundsRequest.builder()
-        //                 .fromAccountNumber("0011011234")
-        //                 .toAccountNumber("0012021234")
-        //                 .amount(10000)
-        //                 .build();
+        @Test
+        void test_transferFunds_statusIsOk_when_both_accountsExists() throws Exception {
+            TransferFundsRequest request = TransferFundsRequest.builder()
+                        .fromAccountNumber("0011011234")
+                        .toAccountNumber("0012021234")
+                        .amount(10000)
+                        .build();
 
-        //     String body = mapper.writeValueAsString(request);
-        //     mockMvc.perform(post("/transactions/transfer")
-        //             .contentType(MediaType.APPLICATION_JSON)
-        //             .content(body))
-        //             .andExpect(status().isOk())
-        //             .andExpect(jsonPath("$").isArray());
-        // }
+            String body = mapper.writeValueAsString(request);
+            mockMvc.perform(post("/transactions/transfer")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(body))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$").isArray());
+        }
 
     }
 

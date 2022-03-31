@@ -21,7 +21,6 @@ pipeline {
   }
 
   stages {
-    stage("init") {
     stage("Test") {
       steps {
         script {

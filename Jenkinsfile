@@ -26,7 +26,7 @@ pipeline {
       steps {
         script {
           if (params.IS_TESTING) {
-            sh "mvn clean test -Dmaven.test.failure.ignore=true"
+            sh "mvn clean test"
           }
         }
       } 
@@ -35,17 +35,13 @@ pipeline {
       steps {
         sh "git submodule init"
         sh "git submodule update"
-        sh "mvn package"
+        sh "mvn package -Dmaven.test.failure.ignore=true"
       }
     } 
     stage("SonarQube") {
       steps {
         withSonarQubeEnv("us-west-1-sonar") {
-<<<<<<< HEAD
-          sh "mvn verify sonar:sonar"
-=======
             sh "mvn verify sonar:sonar -Dmaven.test.failure.ignore=true"
->>>>>>> 5fc6ce2cc811f3b1828277ddda1301ad4b3831f8
         }
       }
     }
